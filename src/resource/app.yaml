@@ -1,0 +1,17 @@
+app:
+  env: "development"
+  port: 8081
+  context_path: "/class-room-listener"
+  host: "localhost"
+  root_path: "/api"
+endpoint:
+  strapi:
+    host: "http://localhost:8082"
+    path: "/strapi-information-gateway/api/strapi"
+    mapping:
+      class_room:
+        path: "/api/class-rooms"
+  course:
+    host: "http://localhost:8080"
+    path: "/course-listenner/api/courses/"
+GIN_MODE: "debug"
