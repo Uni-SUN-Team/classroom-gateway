@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	envService := config.New("app", "./src/resource")
+	envService := config.New("application", "./resource")
 	if err := envService.ConfigENV(); err != nil {
 		log.Panic(err)
 	}

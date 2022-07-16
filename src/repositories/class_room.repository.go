@@ -1,11 +1,11 @@
-package repository
+package repositories
 
 import (
 	"encoding/json"
 	"log"
 	"unisun/api/classroom-gateway/src/constants"
-	"unisun/api/classroom-gateway/src/model"
-	"unisun/api/classroom-gateway/src/model/original"
+	"unisun/api/classroom-gateway/src/models"
+	"unisun/api/classroom-gateway/src/models/original"
 	"unisun/api/classroom-gateway/src/ports"
 
 	"github.com/spf13/viper"
@@ -22,12 +22,12 @@ func New(consumerService ports.ConsumerService) *Service {
 }
 
 func (svr *Service) FindAll(query string) (*original.ResponseSuccess, error) {
-	var request = model.ServiceIncomeRequest{}
+	var request = models.ServiceIncomeRequest{}
 	request.Method = constants.GET
 	// request.Path = viper.GetString("endpoint.strapi.mapping.class_room.path") + "?populate[SEO][populate][shareImage][populate]=*&populate[thumbnail]=*&populate[advisors][populate]=*&populate[categories]=*&populate[Courses][populate][courses][populate][course][populate]=*" + query
 	request.Path = viper.GetString("endpoint.strapi.mapping.class_room.path") + "?populate[SEO][populate][shareImage][populate]=*&populate[thumbnail]=*&populate[advisors]=*&populate[categories]=*&populate[Courses]=*" + query
 	request.Body = nil
-	var resultMapping = model.ServiceIncomeResponse{}
+	var resultMapping = models.ServiceIncomeResponse{}
 	if result, err := svr.ConsumerService.GetInformationFormStrapi(request); err != nil {
 		log.Panic(err)
 		return nil, err
@@ -43,11 +43,11 @@ func (svr *Service) FindAll(query string) (*original.ResponseSuccess, error) {
 }
 
 func (svr *Service) FindById(id string) (*original.ResponseSingleSuccess, error) {
-	var request = model.ServiceIncomeRequest{}
+	var request = models.ServiceIncomeRequest{}
 	request.Method = constants.GET
 	request.Path = viper.GetString("endpoint.strapi.mapping.class_room.path") + "/" + id + "?populate[SEO][populate][shareImage][populate]=*&populate[thumbnail]=*&populate[advisors][populate]=*&populate[categories]=*&populate[Courses][populate][courses][populate][course][populate]=*"
 	request.Body = nil
-	var resultMapping = model.ServiceIncomeResponse{}
+	var resultMapping = models.ServiceIncomeResponse{}
 	if result, err := svr.ConsumerService.GetInformationFormStrapi(request); err != nil {
 		log.Panic(err)
 		return nil, err
@@ -63,11 +63,11 @@ func (svr *Service) FindById(id string) (*original.ResponseSingleSuccess, error)
 }
 
 func (svr *Service) FindBySlug(slug string) (*original.ResponseSuccess, error) {
-	var request = model.ServiceIncomeRequest{}
+	var request = models.ServiceIncomeRequest{}
 	request.Method = constants.GET
 	request.Path = viper.GetString("endpoint.strapi.mapping.class_room.path") + "?populate[SEO][populate][shareImage][populate]=*&populate[thumbnail]=*&populate[advisors][populate]=*&populate[categories]=*&populate[Courses][populate][courses][populate][course][populate]=*"
 	request.Body = nil
-	var resultMapping = model.ServiceIncomeResponse{}
+	var resultMapping = models.ServiceIncomeResponse{}
 	if result, err := svr.ConsumerService.GetInformationFormStrapi(request); err != nil {
 		log.Panic(err)
 		return nil, err

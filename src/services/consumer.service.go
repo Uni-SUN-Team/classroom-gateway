@@ -1,10 +1,11 @@
-package service
+package services
 
 import (
 	"encoding/json"
 	"io/ioutil"
 	"unisun/api/classroom-gateway/src/constants"
-	"unisun/api/classroom-gateway/src/model"
+	"unisun/api/classroom-gateway/src/models"
+
 	"unisun/api/classroom-gateway/src/ports"
 
 	"github.com/spf13/viper"
@@ -20,8 +21,8 @@ func New(utilsService ports.HTTPService) *UtilsService {
 	}
 }
 
-func (svr *UtilsService) GetInformationFormStrapi(payloadRequest model.ServiceIncomeRequest) (*model.ServiceIncomeResponse, error) {
-	var serviceIncomeResponse = model.ServiceIncomeResponse{}
+func (svr *UtilsService) GetInformationFormStrapi(payloadRequest models.ServiceIncomeRequest) (*models.ServiceIncomeResponse, error) {
+	var serviceIncomeResponse = models.ServiceIncomeResponse{}
 	url := viper.GetString("endpoint.strapi.host") + viper.GetString("endpoint.strapi.path")
 	payload, err := json.Marshal(payloadRequest)
 	if err != nil {

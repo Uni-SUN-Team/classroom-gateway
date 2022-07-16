@@ -1,7 +1,7 @@
 package ports
 
-import "unisun/api/classroom-gateway/src/model"
+import "unisun/api/classroom-gateway/src/models"
 
 type ConsumerService interface {
-	GetInformationFormStrapi(payloadRequest model.ServiceIncomeRequest) (*model.ServiceIncomeResponse, error)
+	GetInformationFormStrapi(payloadRequest models.ServiceIncomeRequest) (*models.ServiceIncomeResponse, error)
 }
