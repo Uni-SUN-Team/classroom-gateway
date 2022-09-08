@@ -3,20 +3,19 @@ package main
 import (
 	"log"
 	"unisun/api/classroom-gateway/src"
-	"unisun/api/classroom-gateway/src/config"
-
-	"github.com/spf13/viper"
+	"unisun/api/classroom-gateway/src/config/environment"
+	"unisun/api/classroom-gateway/src/constants"
 )
 
 func main() {
-	envService := config.New("application", "./resource")
-	if err := envService.ConfigENV(); err != nil {
-		log.Panic(err)
+	err := environment.LoadEnvironment()
+	if err != nil {
+		log.Fatal(err)
 	}
 	r := src.App()
-	port := viper.GetString("app.port")
+	port := environment.ENV.App.Port
 	if port == "" {
-		r.Run(":8080")
+		r.Run(":" + constants.PORT)
 	} else {
 		r.Run(":" + port)
 	}

@@ -1,6 +1,6 @@
-package original
+package models
 
-type video struct {
+type Video struct {
 	Id                int64           `json:"id"`
 	Name              string          `json:"string"`
 	AlternativeText   string          `json:"alternativeText"`

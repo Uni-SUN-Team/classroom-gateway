@@ -1,18 +1,22 @@
 package src
 
 import (
+	"strings"
+	"unisun/api/classroom-gateway/src/config/environment"
 	"unisun/api/classroom-gateway/src/routes"
 
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 )
 
 func App() *gin.Engine {
+	appEnv := environment.ENV.App
+	ginEnv := environment.ENV.Gin
 	r := gin.Default()
-	r.SetTrustedProxies([]string{"127.0.0.1"})
-	g := r.Group(viper.GetString("app.context_path") + viper.GetString("app.root_path") + "/v1")
+	r.SetTrustedProxies(strings.Split(ginEnv.Configs.TrustedProxies, ","))
+	g := r.Group(strings.Join([]string{appEnv.ContextPath, ginEnv.RootPath, ginEnv.Version}, "/"))
 	{
-		routes.Consumer(g)
+		routes.HealCheck(g)
+		routes.ClassRoomRoute(g)
 	}
 	return r
 }
